@@ -1,7 +1,7 @@
 import gradio as gr
 
 #MAIN
-version = "4.9.12"
+version = "4.9.13"
 env = "dev"
 aplicacion = "astroblend-dev"
 
@@ -16,6 +16,8 @@ api_b = ("Moibe/image-blend", "gratis")
 #Gratis o Costo
 api_gratis = ("Moibe/image-blend", "gratis")
 api_costo = ("Moibe/image-blend", "costo")
+
+interface_api_name = "/predict" #El endpoint al que llamará client.
 
 process_cost = 0
 seto = "image-blend"

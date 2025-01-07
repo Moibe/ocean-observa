@@ -61,7 +61,7 @@ def mass(input1, input2):
     imagenDestiny = gradio_client.handle_file(input2)       
     
     try: 
-        result = client.predict(imagenSource, imagenDestiny, api_name="/predict")
+        result = client.predict(imagenSource, imagenDestiny, api_name=globales.interface_api_name)
                 
         #(Si llega aquí, debes debitar de la quota, incluso si detecto no-face o algo.)
         if tipo_api == "quota":
