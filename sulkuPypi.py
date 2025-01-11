@@ -74,9 +74,7 @@ def authorize(tokens, work):
     response = requests.get(api_url)
 
     if response.status_code == 200:
-        print("Conexión a Sulku successful...")
-        autorizacion = response.json()
-        print("Autorización:", autorizacion)        
+        autorizacion = response.json()             
     else:
         error = f"Error al obtener el elemento todo: {response.status_code}"
         return error

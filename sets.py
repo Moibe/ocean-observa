@@ -7,6 +7,11 @@ configuraciones = {
         "input2": gr.Image(label="Destination", type="filepath"),
         "result": gr.Image(label="Result"),
     },
+    "observa": {
+        "input1": gr.Image(type="filepath", label="Upload an Image"),
+        "input2": gr.Textbox(label="Input", value="Describe this image.", scale=4),
+        "result": gr.Textbox(label="Result") 
+    },
     "video-blend": {
         "input1": gr.Image(label="Source", type="filepath"),
         "input2": gr.Video(),

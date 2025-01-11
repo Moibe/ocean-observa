@@ -1,4 +1,4 @@
-result_ok = "Image ready!" 
+result_ok = "Image recognition ready" #Future que el texto de result ok, sea globales para q se relacione con la app en cuestión.
 
 out_of_credits = "Out of credits..."
 

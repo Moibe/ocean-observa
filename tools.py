@@ -80,7 +80,6 @@ def initAPI(api):
         repo_id = api
         llave = HfApi(token=bridges.hug)
         runtime = api.get_space_runtime(repo_id=repo_id)
-        print("Stage: ", runtime.stage)
         #"RUNNING_BUILDING", "APP_STARTING", "SLEEPING", "RUNNING", "PAUSED", "RUNTIME_ERROR"
         if runtime.stage == "SLEEPING" or runtime.stage == "PAUSED":
             llave.restart_space(repo_id=repo_id)

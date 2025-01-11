@@ -1,15 +1,16 @@
 import gradio as gr
 
 #MAIN
-version = "4.9.13"
+version = "1.0.0"
 env = "dev"
-aplicacion = "astroblend-dev"
+aplicacion = "observa-dev"
 
-seleccion_api = "eligeAOB" #eligeGratisOCosto , eligeAOB o eligeGratisOCosto
-max_size = 20
+seleccion_api = "eligeQuotaOCosto" #eligeQuotaOCosto , eligeAOB o eligeGratisOCosto
+max_size = 20 #queue size
+
 #Quota o Costo
-api_zero = ("Moibe/image-blend", "quota")
-api_cost = ("Moibe/image-blend", "costo")
+api_zero = ("Moibe/comprension-imagenes", "quota")
+api_cost = ("vikhyatk/moondream2", "gratis") #Éste es un caso raro pq después de acabarte la quota viene el gratis.
 #A o B
 api_a = ("Moibe/image-blend", "gratis")
 api_b = ("Moibe/image-blend", "gratis")
@@ -17,15 +18,15 @@ api_b = ("Moibe/image-blend", "gratis")
 api_gratis = ("Moibe/image-blend", "gratis")
 api_costo = ("Moibe/image-blend", "costo")
 
-interface_api_name = "/predict" #El endpoint al que llamará client.
+interface_api_name = "/answer_question" #El endpoint al que llamará client.
 
 process_cost = 0
-seto = "image-blend"
+seto = "observa"
 work = "picswap"
-app_path = "/boilerplate"
-server_port=7860
+app_path = "/observa"
+server_port=7830
 #tema = tools.theme_selector()
 tema = gr.themes.Default()
-flag = "auto"
+flag = "never" #never, auto o manual.
 
 #Future: Put age to cookies.

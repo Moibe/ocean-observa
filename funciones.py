@@ -22,8 +22,7 @@ def perform(input1, input2, request: gr.Request):
     if autorizacion is True:
         try: 
             resultado = mass(input1, input2)
-        except Exception as e:
-            print("Éste es el except de perform...")            
+        except Exception as e:                       
             info_window, resultado, html_credits = sulkuFront.aError(request.username, tokens, excepcion = tools.titulizaExcepDeAPI(e))
             return resultado, info_window, html_credits, btn_buy
     else:
@@ -31,7 +30,7 @@ def perform(input1, input2, request: gr.Request):
         return resultado, info_window, html_credits, btn_buy    
     
     #Primero revisa si es imagen!: 
-    if "result.png" in resultado:
+    if 1 == 1:
         #Si es imagen, debitarás.
         html_credits, info_window = sulkuFront.presentacionFinal(request.username, "debita")
     else: 
@@ -39,12 +38,6 @@ def perform(input1, input2, request: gr.Request):
         info_window, resultado, html_credits = sulkuFront.aError(request.username, tokens, excepcion = tools.titulizaExcepDeAPI(resultado))
         return resultado, info_window, html_credits, btn_buy      
     
-    # #2: ¿El resultado es debitable?
-    # if debit_rules.debita(resultado) == True:
-    #     html_credits, info_window = sulkuFront.presentacionFinal(request.username, "debita")
-    # else:
-    #     html_credits, info_window = sulkuFront.presentacionFinal(request.username, "no debita") 
-            
     #Lo que se le regresa oficialmente al entorno.
     return resultado, info_window, html_credits, btn_buy
 
@@ -52,18 +45,18 @@ def perform(input1, input2, request: gr.Request):
 def mass(input1, input2):
     
     api, tipo_api = tools.eligeAPI(globales.seleccion_api)
-    print("Una vez elegido API, el tipo api es: ", tipo_api)
 
     client = gradio_client.Client(api, hf_token=bridges.hug)
-    #client = gradio_client.Client("https://058d1a6dcdbaca0dcf.gradio.live/")  #MiniProxy
-
-    imagenSource = gradio_client.handle_file(input1) 
-    imagenDestiny = gradio_client.handle_file(input2)       
+    imagenDestiny = gradio_client.handle_file(input1) 
     
     try: 
-        result = client.predict(imagenSource, imagenDestiny, api_name=globales.interface_api_name)
+        #imagen luego prompt
+        result = client.predict(imagenDestiny, input2, api_name=globales.interface_api_name)
+        print("Ésto es result: ", result)
+          
                 
         #(Si llega aquí, debes debitar de la quota, incluso si detecto no-face o algo.)
+        #Future: Debe de aglutinarse ésto en una función con entrada y salida para no tener tanto texto.
         if tipo_api == "quota":
             print("Como el tipo api fue gratis, si debitaremos la quota.")
             sulkuPypi.updateQuota(globales.process_cost)
@@ -76,26 +69,3 @@ def mass(input1, input2):
             #La no detección de un rostro es mandado aquí?! Siempre?
             mensaje = tools.titulizaExcepDeAPI(e)        
             return mensaje
-
-def mass_zhi(input1, input2): 
-
-    imagenSource = gradio_client.handle_file(input1) 
-    #imagenDestiny = gradio_client.handle_file(input2)       
-
-    client = gradio_client.Client(globales.api)
-    #result = client.predict(imagenSource, imagenDestiny, api_name="/predict")
-
-    result = client.predict(
-		prompt="A hot girl in sexy cocktail dress.",
-		person_img=imagenSource,
-		seed=486992,
-		randomize_seed=False,
-		height=1024,
-		width=1024,
-		api_name="/character_gen"
-        )
-    
-    print(result)
-    print(result[0])    
-
-    return result[0]
