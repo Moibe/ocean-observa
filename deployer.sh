@@ -9,7 +9,7 @@ echo "Proceso eliminado: $pid @ $timestamp"
 sleep 5
 
 cd
-cd code/ocean-devo-observa/
+cd code/ocean-observa/
 source venv/bin/activate
 python app.py &
 PID=$(pgrep -f "python app.py")
