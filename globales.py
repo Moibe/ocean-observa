@@ -1,7 +1,7 @@
 import gradio as gr
 
 #MAIN
-version = "0.0.1"
+version = "0.0.2"
 env = "prod"
 aplicacion = "observa"
 
@@ -23,7 +23,7 @@ interface_api_name = "/answer_question" #El endpoint al que llamará client.
 process_cost = 0
 seto = "observa"
 work = "picswap"
-app_path = "/observa-dev"
+app_path = "/observa"
 server_port=7833
 #tema = tools.theme_selector()
 tema = gr.themes.Default()
