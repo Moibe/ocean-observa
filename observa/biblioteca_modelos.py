@@ -1,0 +1,5 @@
+deteca_idioma ="https://api-inference.huggingface.co/models/papluca/xlm-roberta-base-language-detection"
+ingles_español = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-es"
+español_ingles = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-es-en"
+portugues_ingles = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-es-en"
+italiano_ingles = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-es-en"

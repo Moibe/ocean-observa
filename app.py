@@ -5,6 +5,7 @@ import funciones
 import sulkuFront
 import autorizador
 import gradio as gr
+import observa.herramientas as observa_herramientas
 
 def iniciar():    
     app_path = globales.app_path

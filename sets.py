@@ -1,4 +1,8 @@
 import gradio as gr
+import globales
+import tools
+
+mensajes, sulkuMessages = tools.get_mensajes(globales.mensajes_lang)
 
 # Diccionario para mapear los sets a sus respectivas configuraciones
 configuraciones = {
@@ -8,9 +12,9 @@ configuraciones = {
         "result": gr.Image(label="Result"),
     },
     "observa": {
-        "input1": gr.Image(type="filepath", label="Upload an Image"),
-        "input2": gr.Textbox(label="Input", value="Describe this image.", scale=4),
-        "result": gr.Textbox(label="Result") 
+        "input1": gr.Image(label = mensajes.label_input1, type="filepath"),
+        "input2": gr.Textbox(label= mensajes.label_input2, value=mensajes.value_input2, scale=4),
+        "result": gr.Textbox(label= mensajes.label_resultado) 
     },
     "video-blend": {
         "input1": gr.Image(label="Source", type="filepath"),

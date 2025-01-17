@@ -3,7 +3,11 @@ import globales
 import sulkuPypi
 import gradio as gr
 import threading
-import sulkuMessages
+import observa.herramientas as observa_herramientas
+import tools
+
+# import modulo_correspondiente
+mensajes, sulkuMessages = tools.get_mensajes(globales.mensajes_lang)
 
 result_from_displayTokens = None
 result_from_initAPI = None    
@@ -11,6 +15,8 @@ result_from_initAPI = None
 def displayTokens(request: gr.Request):
     
     global result_from_displayTokens
+
+    #observa_herramientas.precalienta_modelos()   
 
     novelty = sulkuPypi.getNovelty(sulkuPypi.encripta(request.username).decode("utf-8"), globales.aplicacion)    
     if novelty == "new_user": 
@@ -88,13 +94,18 @@ def manejadorExcepciones(excepcion):
 
     return info_window
 
-def presentacionFinal(usuario, accion):
+def presentacionFinal(usuario, accion, mensaje_adicional): #Future agregalo a todas las demás aplicaciones. 
+    #El mensaje adicional sirve para poner algo distinto en la info window a pesar de si haber logrado el resultado.
         
     capsule = sulkuPypi.encripta(usuario).decode("utf-8") #decode es para quitarle el 'b
     
     if accion == "debita":        
         tokens = sulkuPypi.debitTokens(capsule, globales.work, globales.env)
-        info_window = sulkuMessages.result_ok       
+        if not mensaje_adicional:
+            info_window = sulkuMessages.result_ok
+        else:
+            info_window = mensaje_adicional
+                           
     else: 
         info_window = "No face in source path detected."
         tokens = sulkuPypi.getTokens(capsule, globales.env)

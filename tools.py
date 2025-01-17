@@ -4,6 +4,7 @@ import globales
 from huggingface_hub import HfApi
 import bridges
 import sulkuPypi
+import importlib
 
 def theme_selector():
     temas_posibles = [
@@ -55,11 +56,16 @@ def eligeAOB():
     return api, tipo_api
 
 def eligeQuotaOCosto():
-#Se eligirá en los casos en los que se use Zero, para extender las posibilidades de Quota y después usar Costo.
+
+    #Future: Aquí lo único que se agregaría en dado caso en el futuro es un preselector entre dos de quota,
+    #por la question de los queues solamente, finalmente comparte su gauge de quota. 
+    
+    #Primero revisa si aún hay quota disponible para ejecutar ÉSTE proceso.
     diferencia = sulkuPypi.getQuota() - globales.process_cost
 
+    #Si la diferencia es mayor de cero.
     if diferencia >= 0:
-        #Entonces puedes usar Zero.
+        #Entonces puedes usar ZeroGPU.
         api, tipo_api = globales.api_zero
         #Además Si el resultado puede usar la Zero "por última vez", debe de ir prendiendo la otra.
         #if diferencia es menor que el costo de un sig.  del proceso, ve iniciando ya la otra API.
@@ -175,4 +181,36 @@ def desTuplaResultado(resultado):
             # mensaje = "concurrent.futures._base.CancelledError"
             # concurrents = concurrents + 1
         finally: 
-            pass        
+            pass
+
+def get_mensajes(idioma):
+    """
+    Obtiene el módulo de mensajes correspondiente al idioma especificado.
+
+    Args:
+        idioma (str): Código del idioma (ej: 'es', 'en').
+
+    Returns:
+        module: Módulo de mensajes cargado dinámicamente.
+    """
+    #Primero el módulo normal de mensajes.
+    try:
+        # Intenta cargar el módulo correspondiente
+        module_mensajes = importlib.import_module(f"messages.{idioma}")
+        
+    except ImportError:
+        # Si ocurre un error al importar, carga un módulo por defecto (opcional)
+        print(f"Idioma '{idioma}' no encontrado. Cargando módulo por defecto.")
+        module_mensajes = importlib.import_module("messages.en")  # Por ejemplo, inglés como defecto
+
+    #Y después el módulo de Sulku.
+    try:
+        # Intenta cargar el módulo correspondiente
+        module_sulku = importlib.import_module(f"messages_sulku.{idioma}")
+        
+    except ImportError:
+        # Si ocurre un error al importar, carga un módulo por defecto (opcional)
+        print(f"Idioma '{idioma}' no encontrado. Cargando módulo por defecto.")
+        module_sulku = importlib.import_module("messages_sulku.en")  # Por ejemplo, inglés como defecto 
+    
+    return module_mensajes, module_sulku
