@@ -1,7 +1,7 @@
 import gradio as gr
 
 #MAIN
-version = "1.0.2"
+version = "1.1.2"
 env = "prod"
 aplicacion = "observa"
 
@@ -10,7 +10,7 @@ max_size = 20 #queue size
 
 #A o B
 api_a = ("vikhyatk/moondream2", "gratis")
-api_b = ("Moibe/comprension-imagenes", "gratis") #Se considera gratis pq aunqu eestá en Zero no cuesta minutos.
+api_b = ("Moibe/observa", "gratis") #Se considera gratis pq aunqu eestá en Zero no cuesta minutos.
 
 process_cost = 0
 interface_api_name = "/answer_question" #El endpoint al que llamará client.
